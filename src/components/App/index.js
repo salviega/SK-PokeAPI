@@ -1,23 +1,21 @@
 import React from 'react';
 import './App.css';
 import { Title } from '../Title';
+import { SearchPokemon } from '../SearchPokemon';
 import { Pokedex } from '../Pokedex';
-import { Pokemon } from '../Pokemon';
 import { getPokemons, getPokemonsByUrl } from '../../middleware/get-api';
 
 function App() {
-  const [pokemons, setPokemons] = React.useState(null);
-  const [pokemonsData, setpokemonsData] = React.useState([]);
+  const [pokemons, setPokemons] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState('');
 
   const fetchPokemons = async () => {
-    const data = await getPokemons();
-    setPokemons(data);
-
-    const promises = data.map(async (pokemon) => {
+    let data = await getPokemons();
+    const promises = data.results.map(async (pokemon) => {
       return await getPokemonsByUrl(pokemon.url);
     });
-    const results = await Promise.all(promises);
-    setpokemonsData(results);
+    let results = await Promise.all(promises);
+    setPokemons(results);
   };
 
   React.useEffect(() => {
@@ -27,9 +25,8 @@ function App() {
   return (
     <React.Fragment>
       <Title />
-      <Pokedex pokemon={pokemons} pokemonsData={pokemonsData}>
-        <Pokemon />
-      </Pokedex>
+      <SearchPokemon searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Pokedex pokemons={pokemons}></Pokedex>
     </React.Fragment>
   );
 }
