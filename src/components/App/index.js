@@ -35,11 +35,17 @@ function App() {
     setPokemons(results);
   };
 
-  const addIteam = (iteam) => {
-    console.log(items);
-    let newItems = [...items];
-    newItems.push(iteam);
-    saveItem(newItems);
+  const addIteam = (newItem) => {
+    if (items.legth < 1) {
+      let newItems = [...items];
+      newItems.push(newItem);
+      saveItem(newItems);
+    } else {
+      let newItems = items.filter((iteam) => iteam.pokemon !== newItem.pokemon);
+      newItems.push(newItem);
+      saveItem(newItems);
+      console.log(items);
+    }
   };
 
   React.useEffect(() => {
