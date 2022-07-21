@@ -1,15 +1,15 @@
 import React from 'react';
-import './InfoPokemon.css';
+import './PokemonInfo.css';
 
-function InfoPokemon(props) {
+function PokemonInfo(props) {
   const onCancel = () => {
     props.setOpenModal(false);
   };
 
   return (
-    <div className='container'>
+    <div className='container card'>
       <img src={props.selectedPokemon.sprites.front_default} alt='default' />
-      <p>{props.selectedPokemon.id}</p>
+      <p>Pokemón: {props.selectedPokemon.id}</p>
       <p>{props.selectedPokemon.name}</p>
       <button type='button' onClick={onCancel}>
         Regresar
@@ -18,4 +18,4 @@ function InfoPokemon(props) {
   );
 }
 
-export { InfoPokemon };
+export { PokemonInfo };

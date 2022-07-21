@@ -4,7 +4,7 @@ import './Pokedex.css';
 function Pokedex(props) {
   return (
     <section>
-      <ul>{props.children}</ul>
+      <ul className='cards'>{props.children}</ul>
     </section>
   );
 }

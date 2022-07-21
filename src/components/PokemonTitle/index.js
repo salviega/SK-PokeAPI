@@ -1,7 +1,7 @@
 import React from 'react';
-import './Title.css';
+import './PokemonTitle.css';
 
-function Title() {
+function PokemonTitle() {
   return (
     <header>
       <h1>PokeAPI</h1>
@@ -9,4 +9,4 @@ function Title() {
   );
 }
 
-export { Title };
+export { PokemonTitle };

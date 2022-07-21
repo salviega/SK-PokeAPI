@@ -1,14 +1,20 @@
-import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
-import { Title } from '../Title';
-import { SearchPokemon } from '../SearchPokemon';
-import { Pokedex } from '../Pokedex';
-import { Modal } from '../Modal';
-import { Pokemon } from '../Pokemon';
-import { InfoPokemon } from '../InfoPokemon';
+
 import { getPokemons, getPokemonsByUrl } from '../../middleware/get-api';
+import { useLocalStorage } from './useLocalStorage';
+
+import React from 'react';
+import { PokemonTitle } from '../PokemonTitle';
+import { PokemonSearch } from '../PokemonSearch';
+import { Pokedex } from '../Pokedex';
+import { Pokemon } from '../Pokemon';
+import { Modal } from '../Modal';
+import { PokemonInfo } from '../PokemonInfo';
 
 function App() {
+  const { item: items, saveItem } = useLocalStorage('POKEMONS', []);
   const [pokemons, setPokemons] = React.useState([]);
   const [selectedPokemon, setSelectedPokemon] = React.useState({});
   const [searchValue, setSearchValue] = React.useState('');
@@ -29,20 +35,31 @@ function App() {
     setPokemons(results);
   };
 
+  const addIteam = (iteam) => {
+    console.log(items);
+    let newItems = [...items];
+    newItems.push(iteam);
+    saveItem(newItems);
+  };
+
   React.useEffect(() => {
     fetchPokemons();
   }, []);
 
   return (
     <React.Fragment>
-      <Title />
-      <SearchPokemon searchValue={searchValue} setSearchValue={setSearchValue} />
+      <div style={{ margin: '25px' }}>
+        <PokemonTitle />
+        <PokemonSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+      </div>
       <Pokedex>
         {alreadyPokemons.map((pokemon, index) => (
           <Pokemon
             key={index}
             pokemon={pokemon}
             index={index}
+            items={items}
+            addIteam={addIteam}
             openModal={openModal}
             setOpenModal={setOpenModal}
             selectedPokemon={selectedPokemon}
@@ -52,7 +69,7 @@ function App() {
       </Pokedex>
       {!!openModal && (
         <Modal>
-          <InfoPokemon selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} openModal={openModal} setOpenModal={setOpenModal} />
+          <PokemonInfo selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} openModal={openModal} setOpenModal={setOpenModal} />
         </Modal>
       )}
     </React.Fragment>
