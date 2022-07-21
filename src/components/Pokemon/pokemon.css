@@ -1,12 +1,19 @@
+img {
+  margin-top: 10px;
+}
+
 .withoutBullet {
   list-style-type: none;
 }
 
 .card {
   /* Add shadows to create the "card" effect */
+  background-color: #efefef;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 250px;
+  margin-top: 25px;
   transition: 0.3s;
-  width: min-content;
+  width: 250px;
 }
 
 /* On mouse-over, add a deeper shadow */
