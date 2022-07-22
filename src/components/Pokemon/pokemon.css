@@ -1,4 +1,4 @@
-i {
+.box-black {
   color: #4d4e56;
   cursor: pointer;
   left: 15px;
@@ -6,7 +6,7 @@ i {
   top: 5px;
 }
 
-.box-btn {
+.box-red {
   color: red;
   cursor: pointer;
 }

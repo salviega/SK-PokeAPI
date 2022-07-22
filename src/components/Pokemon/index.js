@@ -11,7 +11,7 @@ function Pokemon(props) {
     <li className='row card withoutBullet'>
       {props.pokemon != null ? (
         <div className='container'>
-          <PokemonStart pokemon={props.pokemon} items={props.items} addIteam={props.addIteam} />
+          <PokemonStart pokemon={props.pokemon} items={props.items} addIteam={props.addIteam} getFavoritesPokemons={props.getFavoritesPokemons} />
           <img src={props.pokemon.sprites.front_default} alt='default' />
           <p>Pokemón: {props.pokemon.id}</p>
           <p>{props.pokemon.name}</p>

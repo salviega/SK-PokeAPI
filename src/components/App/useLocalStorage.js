@@ -4,7 +4,7 @@ function useLocalStorage(itemName, initialValue) {
   const [item, setItem] = React.useState(initialValue);
 
   React.useEffect(() => {
-    const localStorageItem = localStorage.getItem(itemName);
+    let localStorageItem = localStorage.getItem(itemName);
     let parsedItem;
 
     if (!localStorageItem) {
@@ -13,7 +13,6 @@ function useLocalStorage(itemName, initialValue) {
     } else {
       parsedItem = JSON.parse(localStorageItem);
     }
-
     setItem(parsedItem);
   }, []);
 

@@ -28,7 +28,7 @@ function App() {
 
   const fetchPokemons = async () => {
     let data = await getPokemons();
-    const promises = data.results.map(async (pokemon) => {
+    let promises = data.results.map(async (pokemon) => {
       return await getPokemonsByUrl(pokemon.url);
     });
     let results = await Promise.all(promises);
@@ -39,12 +39,20 @@ function App() {
     if (items.legth < 1) {
       let newItems = [...items];
       newItems.push(newItem);
-      saveItem(newItems);
     } else {
       let newItems = items.filter((iteam) => iteam.pokemon !== newItem.pokemon);
       newItems.push(newItem);
       saveItem(newItems);
-      console.log(items);
+    }
+  };
+
+  const getFavoritesPokemons = (pokemon) => {
+    try {
+      let favorites = items.filter((item) => item.pokemon === pokemon.name);
+      if (favorites[0].favorite) return true;
+      return false;
+    } catch (error) {
+      return false;
     }
   };
 
@@ -70,6 +78,7 @@ function App() {
             setOpenModal={setOpenModal}
             selectedPokemon={selectedPokemon}
             setSelectedPokemon={setSelectedPokemon}
+            getFavoritesPokemons={getFavoritesPokemons(pokemon)}
           />
         ))}
       </Pokedex>
